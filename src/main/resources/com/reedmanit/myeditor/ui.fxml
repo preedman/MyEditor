@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -17,6 +18,7 @@
             <items>
                   <MenuItem fx:id="openMenuItem" mnemonicParsing="false" onAction="#openFile" text="Open " />
                   <MenuItem fx:id="saveMenuItem" mnemonicParsing="false" onAction="#saveData" text="Save" />
+                  <MenuItem fx:id="saveAsMenuItem" mnemonicParsing="false" onAction="#saveAsData" text="Save As ..." />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
@@ -36,13 +38,22 @@
       <TextArea fx:id="dataText" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <HBox alignment="CENTER" prefHeight="48.0" prefWidth="971.0" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" prefHeight="48.0" prefWidth="971.0" spacing="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Text Editor">
+            <Label fx:id="fileNameLabel" alignment="CENTER" prefHeight="20.0" prefWidth="208.0" text=" ">
                <font>
                   <Font name="Times New Roman Bold" size="18.0" />
                </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
             </Label>
-         </children></HBox>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin></HBox>
    </bottom>
 </BorderPane>

@@ -20,6 +20,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -27,36 +28,36 @@ import javafx.stage.Stage;
  * @author paul
  */
 public class Main extends Application {
-    
+
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws Exception {
-        
-      
+
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/com/reedmanit/myeditor/img/file.png")));
+
+        stage.setTitle("My Text Editor");
         
         scene = new Scene(loadFXML("ui"));
         stage.setScene(scene);
         stage.show();
-        
+
     }
-    
+
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/reedmanit/myeditor/" + fxml + ".fxml"));
         return fxmlLoader.load();
     }
-    
+
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
-    
-    
-    
-     /**
+
+    /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

@@ -15,20 +15,17 @@
  */
 package com.reedmanit.myeditor.controller;
 
+import com.reedmanit.myeditor.data.Input;
 import com.reedmanit.myeditor.data.Output;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import static java.nio.charset.StandardCharsets.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -56,21 +53,33 @@ public class UIController implements Initializable {
     private MenuItem openMenuItem;
 
     @FXML
+    private MenuItem saveAsMenuItem;
+    
+    @FXML
     private MenuItem saveMenuItem;
 
     @FXML
     private TextArea dataText;
+    
+    @FXML
+    private Label fileNameLabel;
 
     private Output out;
+    
+    private File openFile;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        saveMenuItem = new MenuItem();
+        fileNameLabel = new Label();
+        
+        fileNameLabel.setText("No File Open");
+        
+        saveAsMenuItem = new MenuItem();
 
-        saveMenuItem.setOnAction(e -> {
+        saveAsMenuItem.setOnAction(e -> {
             try {
-                saveData();
+                saveAsData();
             } catch (IOException ex) {
                 Logger.getLogger(UIController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -85,15 +94,26 @@ public class UIController implements Initializable {
                 Logger.getLogger(UIController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        
+        saveMenuItem = new MenuItem();
+        
+        saveMenuItem.setOnAction(e -> {
+            try {
+                saveData();
+            } catch (IOException ex) {
+                Logger.getLogger(UIController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        
 
     }
 
-    public void saveData() throws IOException {
-        System.out.println("Save Selected");
+    public void saveAsData() throws IOException {
+        System.out.println("Save As Selected");
 
         FileChooser fileChooser = new FileChooser();
 
-        fileChooser.setTitle("Save Text File");
+        fileChooser.setTitle("Save As Text File");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text doc(*.txt)", "*.txt"));
         fileChooser.setInitialFileName("*.txt");
 
@@ -104,6 +124,20 @@ public class UIController implements Initializable {
             out.persist(dataText.getText());
         }
 
+    }
+    
+    public void saveData() throws IOException {
+        
+        System.out.println("Save Selected");
+        
+        if (openFile != null) {
+            
+            Output saveFile = new Output(openFile);
+            saveFile.persist(dataText.getText());
+            
+        }
+        
+        
     }
 
     public void openFile() throws IOException {
@@ -116,13 +150,13 @@ public class UIController implements Initializable {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text doc(*.txt)", "*.txt"));
         fileChooser.setInitialFileName("*.txt");
 
-        File selectedFile = fileChooser.showOpenDialog(new Stage());
+        openFile = fileChooser.showOpenDialog(new Stage());
 
-        if (selectedFile != null) {
-            Path filePath = Paths.get(selectedFile.getAbsolutePath());
-            String content = new String(Files.readAllBytes(filePath));
-         
-            dataText.setText(content);
+        if (openFile != null) {
+
+            Input in = new Input(openFile);
+            dataText.setText(in.readContents());
+            fileNameLabel.setText(openFile.getName());  
         }
 
     }
