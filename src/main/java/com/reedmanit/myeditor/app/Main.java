@@ -15,6 +15,7 @@
  */
 package com.reedmanit.myeditor.app;
 
+import com.reedmanit.myeditor.controller.UIController;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -31,21 +32,34 @@ public class Main extends Application {
 
     private static Scene scene;
 
+    private static Stage theStage;
+
+    private static UIController theController;
+    
+    private static FXMLLoader fxmlLoader;
+
     @Override
     public void start(Stage stage) throws Exception {
 
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/com/reedmanit/myeditor/img/file.png")));
 
         stage.setTitle("My Text Editor");
-        
+
+        theStage = stage;
+
         scene = new Scene(loadFXML("ui"));
         stage.setScene(scene);
+
+        theController = fxmlLoader.getController();
+        theController.setStage(theStage);
+
         stage.show();
 
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/reedmanit/myeditor/" + fxml + ".fxml"));
+        fxmlLoader = new FXMLLoader(Main.class.getResource("/com/reedmanit/myeditor/" + fxml + ".fxml"));
+
         return fxmlLoader.load();
     }
 
