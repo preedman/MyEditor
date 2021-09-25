@@ -15,10 +15,38 @@
  */
 package com.reedmanit.myeditor.util;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  *
  * @author preed
  */
 public class Find {
+    
+    private String data;
+    
+    public Find(String aValue) {
+        data = aValue;
+    }
+    
+    public int positionOf(String value) {
+        
+        return StringUtils.indexOf(getData(), value);
+        
+    }
+
+    /**
+     * @return the data
+     */
+    public String getData() {
+        return data;
+    }
+
+    /**
+     * @param data the data to set
+     */
+    public void setData(String data) {
+        this.data = data;
+    }
     
 }

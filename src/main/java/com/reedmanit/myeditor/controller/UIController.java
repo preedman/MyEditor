@@ -17,23 +17,31 @@ package com.reedmanit.myeditor.controller;
 
 import com.reedmanit.myeditor.data.Input;
 import com.reedmanit.myeditor.data.Output;
+import com.reedmanit.myeditor.util.Find;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * FXML Controller class
@@ -70,6 +78,9 @@ public class UIController implements Initializable {
     private TextArea dataText;
 
     @FXML
+    private TextFlow dataTextFlow;
+
+    @FXML
     private MenuItem findMenuItem;
 
     @FXML
@@ -77,6 +88,9 @@ public class UIController implements Initializable {
 
     @FXML
     private TextField fileNameTF;
+    
+    @FXML
+    private MenuItem aboutMenuItem;
 
     private Output out;
 
@@ -89,12 +103,18 @@ public class UIController implements Initializable {
 
     private Font theFont;
 
+    private Text theContent;
+
+    private TextInputDialog searchDialog;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         theFont = Font.font(fontFamily, fontSize);
 
         dataText.setFont(theFont);
+
+        theContent = new Text();
 
         saveAsMenuItem = new MenuItem();
 
@@ -149,6 +169,14 @@ public class UIController implements Initializable {
             findContent();
 
         });
+        
+        aboutMenuItem = new MenuItem();
+        
+        aboutMenuItem.setOnAction(e -> {
+
+            showAbout();
+
+        });
 
     }
 
@@ -169,10 +197,10 @@ public class UIController implements Initializable {
 
         fileChooser.setTitle("Save File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                                                 new FileChooser.ExtensionFilter("HTML Files", "*.htm"),
-                                                 new FileChooser.ExtensionFilter("Java Files", "*.java")
+                new FileChooser.ExtensionFilter("HTML Files", "*.htm"),
+                new FileChooser.ExtensionFilter("Java Files", "*.java")
         );
-        
+
         fileChooser.setInitialFileName(theStage.getTitle());
 
         theDataFile = fileChooser.showSaveDialog(new Stage());
@@ -207,10 +235,10 @@ public class UIController implements Initializable {
 
         fileChooser.setTitle("Open Text File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text Files", "*.txt"),
-                                                 new FileChooser.ExtensionFilter("HTML Files", "*.htm"),
-                                                 new FileChooser.ExtensionFilter("Java Files", "*.java")
+                new FileChooser.ExtensionFilter("HTML Files", "*.htm"),
+                new FileChooser.ExtensionFilter("Java Files", "*.java")
         );
-      
+
         fileChooser.setInitialFileName("*.txt");
 
         theDataFile = fileChooser.showOpenDialog(new Stage());
@@ -218,6 +246,7 @@ public class UIController implements Initializable {
         if (theDataFile != null) {
 
             Input in = new Input(theDataFile);
+
             dataText.setText(in.readContents());
             System.out.println(theDataFile.getName());
 
@@ -233,10 +262,29 @@ public class UIController implements Initializable {
 
     public void findContent() {
 
+        searchDialog = new TextInputDialog();
+        searchDialog.setTitle("Search Dialog");
+        searchDialog.setHeaderText("Find text");
+        searchDialog.setContentText("Find ?");
+
+        Optional<String> result = searchDialog.showAndWait();
+
+        if (result.isPresent()) {
+            Find f = new Find(dataText.getText());
+
+            dataText.positionCaret(f.positionOf(result.get()));
+        }
+
     }
 
     public void setStage(Stage aStage) {
         theStage = aStage;
+    }
+
+    public void showAbout() {
+        
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Simple Text Editor - JavaFX");
+        alert.showAndWait();
     }
 
 }
