@@ -4,7 +4,7 @@
   <groupId>com.reedmanit</groupId>
   <artifactId>MyEditor</artifactId>
   <name>MyEditor</name>
-  <version>0.1</version>
+  <version>0.2</version>
   <build>
     <plugins>
       <plugin>

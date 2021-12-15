@@ -88,7 +88,7 @@ public class UIController implements Initializable {
 
     @FXML
     private TextField fileNameTF;
-    
+
     @FXML
     private MenuItem aboutMenuItem;
 
@@ -169,9 +169,9 @@ public class UIController implements Initializable {
             findContent();
 
         });
-        
+
         aboutMenuItem = new MenuItem();
-        
+
         aboutMenuItem.setOnAction(e -> {
 
             showAbout();
@@ -272,7 +272,20 @@ public class UIController implements Initializable {
         if (result.isPresent()) {
             Find f = new Find(dataText.getText());
 
-            dataText.positionCaret(f.positionOf(result.get()));
+            if (f.positionOf(result.get()) > 0) {   // some text was found
+                
+                System.out.println(result.get().length());
+                System.out.println(f.positionOf(result.get()));
+               
+                dataText.positionCaret(f.positionOf(result.get()));  // put the cursor at the start of the text
+                dataText.selectNextWord(); // select the word
+
+                dataText.setStyle("-fx-highlight-fill: lightgray; -fx-highlight-text-fill: firebrick;"); // highlight it.
+            } else {
+                dataText.positionCaret(0);  // not found - position at beginning
+            }
+            
+
         }
 
     }
@@ -282,7 +295,7 @@ public class UIController implements Initializable {
     }
 
     public void showAbout() {
-        
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Simple Text Editor - JavaFX");
         alert.showAndWait();
     }
