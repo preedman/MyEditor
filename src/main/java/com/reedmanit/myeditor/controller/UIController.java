@@ -18,13 +18,22 @@ package com.reedmanit.myeditor.controller;
 import com.reedmanit.myeditor.data.Input;
 import com.reedmanit.myeditor.data.Output;
 import com.reedmanit.myeditor.util.Find;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.file.Files;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
+import static java.util.logging.Level.SEVERE;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -106,9 +115,13 @@ public class UIController implements Initializable {
     private Text theContent;
 
     private TextInputDialog searchDialog;
+    
+    private static Properties prop;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        readProperties();
 
         theFont = Font.font(fontFamily, fontSize);
 
@@ -244,10 +257,10 @@ public class UIController implements Initializable {
         theDataFile = fileChooser.showOpenDialog(new Stage());
 
         if (theDataFile != null) {
+            
+              loadFileToTextArea(theDataFile);
 
-            Input in = new Input(theDataFile);
-
-            dataText.setText(in.readContents());
+     
             System.out.println(theDataFile.getName());
 
             theStage.setTitle(theDataFile.getName());
@@ -296,8 +309,81 @@ public class UIController implements Initializable {
 
     public void showAbout() {
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Simple Text Editor - JavaFX");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Simple Text Editor - JavaFX" + " version " + prop.getProperty("version") );
         alert.showAndWait();
+    }
+    
+    private static void readProperties() {
+        try (InputStream input = UIController.class.getClassLoader().getResourceAsStream("editor.properties")) {
+
+            prop = new Properties();
+
+            if (input == null) {
+                System.out.println("Sorry, unable to find properties");
+                return;
+            }
+
+            //load a properties file from class path, inside static method
+            prop.load(input);
+
+            //get the property value and print it out
+            System.out.println(prop.getProperty("version"));
+            
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
+    private void loadFileToTextArea(File fileToLoad) {
+        Task<String> loadTask = fileLoaderTask(fileToLoad);
+   
+        loadTask.run();
+        
+    }
+    
+    private Task<String> fileLoaderTask(File fileToLoad) {
+        //Create a task to load the file asynchronously
+        Task<String> loadFileTask = new Task<>() {
+            @Override
+            protected String call() throws Exception {
+                BufferedReader reader = new BufferedReader(new FileReader(fileToLoad));
+                //Use Files.lines() to calculate total lines - used for progress
+                long lineCount;
+                try (Stream<String> stream = Files.lines(fileToLoad.toPath())) {
+                    lineCount = stream.count();
+                }
+                //Load in all lines one by one into a StringBuilder separated by "\n" - compatible with TextArea
+                String line;
+                StringBuilder totalFile = new StringBuilder();
+                long linesLoaded = 0;
+                while ((line = reader.readLine()) != null) {
+                    totalFile.append(line);
+                    totalFile.append("\n");
+                    updateProgress(++linesLoaded, lineCount);
+                }
+                return totalFile.toString();
+            }
+        };
+        //If successful, update the text area, display a success message and store the loaded file reference
+        loadFileTask.setOnSucceeded(workerStateEvent -> {
+            try {
+                dataText.setText(loadFileTask.get());
+             //   statusMessage.setText("File loaded: " + fileToLoad.getName());
+            //    loadedFileReference = fileToLoad;
+           //     lastModifiedTime = Files.readAttributes(fileToLoad.toPath(), BasicFileAttributes.class).lastModifiedTime();
+            } catch (InterruptedException | ExecutionException  e) {
+                Logger.getLogger(getClass().getName()).log(SEVERE, null, e);
+                dataText.setText("Could not load file from:\n " + fileToLoad.getAbsolutePath());
+            }
+          //  scheduleFileChecking(loadedFileReference);
+        });
+        //If unsuccessful, set text area with error message and status message to failed
+        loadFileTask.setOnFailed(workerStateEvent -> {
+            dataText.setText("Could not load file from:\n " + fileToLoad.getAbsolutePath());
+          //  statusMessage.setText("Failed to load file");
+        });
+        return loadFileTask;
     }
 
 }
