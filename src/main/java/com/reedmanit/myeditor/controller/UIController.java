@@ -15,7 +15,7 @@
  */
 package com.reedmanit.myeditor.controller;
 
-import com.reedmanit.myeditor.data.Input;
+
 import com.reedmanit.myeditor.data.Output;
 import com.reedmanit.myeditor.util.Find;
 import java.io.BufferedReader;
