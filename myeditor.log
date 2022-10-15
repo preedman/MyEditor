@@ -1,0 +1,58 @@
+2022-10-15 12:25:05 INFO  UIController:154 - Enter UI Controller
+2022-10-15 12:25:05 INFO  UIController:441 - Enter read properties
+2022-10-15 12:25:05 INFO  UIController:456 - Software version 0.4
+2022-10-15 12:25:05 INFO  UIController:230 - Exit UI Controller
+2022-10-15 12:25:08 INFO  UIController:288 - Open file enter
+2022-10-15 12:25:14 INFO  UIController:465 - Load File to Text Area
+2022-10-15 12:25:14 INFO  UIController:476 - Enter file loader task
+2022-10-15 12:25:14 INFO  UIController:518 - Exit Load File task
+2022-10-15 12:25:14 INFO  UIController:470 - exit Load file to text area
+2022-10-15 12:25:14 INFO  UIController:310 - open file exit
+2022-10-15 12:25:21 INFO  UIController:328 - find content enter
+2022-10-15 12:25:21 INFO  SearchController:59 - Enter Search Controller
+2022-10-15 12:25:21 INFO  SearchController:64 - Exit Search Controller
+2022-10-15 12:25:25 INFO  SearchController:69 - Enter Search Text
+2022-10-15 12:25:25 INFO  SearchController:81 - number of y 1
+2022-10-15 12:25:25 INFO  UIController:362 - Highlight text enter
+2022-10-15 12:25:25 INFO  UIController:366 - Highlight text exit
+2022-10-15 12:25:25 INFO  SearchController:91 - Exit Search Text
+2022-10-15 12:25:28 INFO  SearchController:97 - Enter next
+2022-10-15 12:25:28 INFO  SearchController:107 - Exit Next
+2022-10-15 12:25:29 INFO  SearchController:97 - Enter next
+2022-10-15 12:25:29 INFO  SearchController:107 - Exit Next
+2022-10-15 12:25:30 INFO  SearchController:97 - Enter next
+2022-10-15 12:25:30 INFO  SearchController:107 - Exit Next
+2022-10-15 12:25:36 INFO  SearchController:69 - Enter Search Text
+2022-10-15 12:25:36 INFO  SearchController:81 - number of test 2
+2022-10-15 12:25:36 INFO  UIController:362 - Highlight text enter
+2022-10-15 12:25:36 INFO  UIController:366 - Highlight text exit
+2022-10-15 12:25:36 INFO  SearchController:91 - Exit Search Text
+2022-10-15 12:25:38 INFO  SearchController:69 - Enter Search Text
+2022-10-15 12:25:38 INFO  SearchController:81 - number of test 2
+2022-10-15 12:25:38 INFO  UIController:362 - Highlight text enter
+2022-10-15 12:25:38 INFO  UIController:366 - Highlight text exit
+2022-10-15 12:25:38 INFO  SearchController:91 - Exit Search Text
+2022-10-15 12:25:39 INFO  SearchController:97 - Enter next
+2022-10-15 12:25:39 INFO  UIController:362 - Highlight text enter
+2022-10-15 12:25:39 INFO  UIController:366 - Highlight text exit
+2022-10-15 12:25:39 INFO  SearchController:107 - Exit Next
+2022-10-15 12:25:41 INFO  SearchController:97 - Enter next
+2022-10-15 12:25:41 INFO  SearchController:107 - Exit Next
+2022-10-15 12:25:42 INFO  SearchController:69 - Enter Search Text
+2022-10-15 12:25:42 INFO  SearchController:81 - number of test 2
+2022-10-15 12:25:42 INFO  UIController:362 - Highlight text enter
+2022-10-15 12:25:42 INFO  UIController:366 - Highlight text exit
+2022-10-15 12:25:42 INFO  SearchController:91 - Exit Search Text
+2022-10-15 12:25:48 INFO  SearchController:69 - Enter Search Text
+2022-10-15 12:25:48 INFO  SearchController:81 - number of Pasts 1
+2022-10-15 12:25:48 INFO  UIController:362 - Highlight text enter
+2022-10-15 12:25:48 INFO  UIController:366 - Highlight text exit
+2022-10-15 12:25:48 INFO  SearchController:91 - Exit Search Text
+2022-10-15 12:25:49 INFO  SearchController:97 - Enter next
+2022-10-15 12:25:49 INFO  SearchController:107 - Exit Next
+2022-10-15 12:25:51 INFO  SearchController:69 - Enter Search Text
+2022-10-15 12:25:51 INFO  SearchController:81 - number of Pasts 1
+2022-10-15 12:25:51 INFO  UIController:362 - Highlight text enter
+2022-10-15 12:25:51 INFO  UIController:366 - Highlight text exit
+2022-10-15 12:25:51 INFO  SearchController:91 - Exit Search Text
+2022-10-15 12:25:54 INFO  UIController:352 - Find content exit

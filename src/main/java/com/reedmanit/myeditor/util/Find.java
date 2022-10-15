@@ -25,8 +25,25 @@ public class Find {
     
     private String data;
     
+    private Integer[] indexes;
+    
     public Find(String aValue) {
         data = aValue;
+    }
+    
+    public int findAll(String value) {
+        int n = StringUtils.countMatches(data, value);  // how many times does string appear
+        int p = 0;  // ptr set to start of string
+        
+        if (n > 0) {     // some matches
+            indexes = new Integer[n]; 
+            for (int i = 0; i < n; i++) {   
+                indexes[i] = StringUtils.indexOf(data, value, p);  // store the index of the search item
+                p = indexes[i] + value.length();  // push the ptr forward to beyond the current length of the found string
+            }
+        }
+        return n;   // return number of times string appears
+        
     }
     
     public int positionOf(String value) {
@@ -47,6 +64,13 @@ public class Find {
      */
     public void setData(String data) {
         this.data = data;
+    }
+
+    /**
+     * @return the indexes
+     */
+    public Integer[] getIndexes() {
+        return indexes;
     }
     
 }
