@@ -1,37 +1,20 @@
-## Welcome to GitHub Pages
+# Welcome
 
-You can use the [editor on GitHub](https://github.com/preedman/MyEditor/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+Welcome to a short description of My Editor. This is a simple, evolving text editor written in JavaFX.
+Its purpose is to provide a basis for education and experimentation for JavaFX and Text Editors.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+## Features Implemented
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+1. New, Open, Save, Save As, Exit, Find
+2. Supports Text Files
+3. Large file text file loading
 
-```markdown
-Syntax highlighted code block
+## Features Planned
 
-# Header 1
-## Header 2
-### Header 3
+1. Print
+2. Improved Text Handling - a richer text area
+3. Support for JSON files
+4. Copy, Paste
+5. Improvements in Find - searching by wild cards etc
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/preedman/MyEditor/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
